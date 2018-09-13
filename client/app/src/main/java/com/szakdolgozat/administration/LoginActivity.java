@@ -3,21 +3,22 @@ package com.szakdolgozat.administration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.szakdolgozat.log.CustomLogger;
+import com.szakdolgozat.log.Logging;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements RegisterCallback {
 
-    public static final String TAG = "LoginActivity";
+    private static final CustomLogger log = Logging.getLogger(LoginActivity.class);
 
-    private Button loginButton;
     private EditText nameField;
     private EditText passwordField;
     private ProgressBar progressBar;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_layout);
-        loginButton = findViewById(R.id.LoginButton);
+        Button loginButton = findViewById(R.id.LoginButton);
         nameField = findViewById(R.id.NameField);
         passwordField = findViewById(R.id.PasswordField);
         progressBar = findViewById(R.id.progressBar);
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterCallback
                 progressBar.setVisibility(View.VISIBLE);
                 String name = nameField.getText().toString();
                 String pass = passwordField.getText().toString();
-                Log.i(TAG, "name: " + name + " pass: " + pass);
+                log.info("name: " + name + " pass: " + pass);
                 if (loginTask != null) {
                     loginTask.cancel(true);
                 }
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterCallback
 
     @Override
     public void onRegister(String s) {
-        Log.i(TAG, "end: " + s);
+        log.info("end: " + s);
     }
 
     private class LoginTask extends AsyncTask<Void, Void, List<String>> {

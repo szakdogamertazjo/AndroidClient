@@ -1,1 +1,3 @@
-include ':app'
+include ':client:app'
+include ':libraries:logging'
+include ':modules'
